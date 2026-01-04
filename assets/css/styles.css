@@ -1,0 +1,205 @@
+/* Placeholder visible en buscador */
+.search-input {
+  color: #1c2e8d;
+}
+
+.search-input::placeholder {
+  color: #1c2e8d;
+  opacity: 0.6;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1c2e8d;
+  padding-top: 90px;
+  background-color: #fdf4ed;
+}
+
+/* TÍTULO PRINCIPAL */
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: #1c2e8d;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* SEARCH BAR */
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-input {
+  border-radius: 25px;
+  border: 1.5px solid #1c2e8d;
+  padding: 12px 20px;
+  font-size: 1rem;
+}
+
+.search-btn {
+  position: absolute;
+  right: 12px;
+  top: 6px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #1c2e8d;
+  cursor: pointer;
+}
+
+/* SIDEBAR  */
+
+.sidebar-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.sidebar-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar-list li {
+  padding: 4px 0;
+  color: #2a3480;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.sidebar-list li:hover {
+  color: #4a63c7;
+}
+
+/* CARDS DE RECETAS  */
+
+.recipe-card {
+  background: none;
+  border: 1.5px solid #1c2e8d;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.recipe-card h5 {
+  font-family: 'Playfair Display', serif;
+  color: #1c2e8d;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 3.5em;
+}
+
+.card-btn {
+  background: none;
+  border: 1.5px solid #1c2e8d;
+  padding: 6px 18px;
+  border-radius: 25px;
+  color: #1c2e8d;
+  font-weight: 500;
+  transition: background 0.2s ease-in-out;
+  position: relative;
+  z-index: 10;
+  margin-top: auto;
+}
+
+.card-btn:hover {
+  background: #1c2e8d;
+  color: #fff;
+}
+
+/* NAVBAR */
+
+.navbar {
+  background-color: #fdf4ed;
+  border-bottom: 1px solid #1c2e8d;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.navbar-nav .nav-link {
+  font-family: 'Inter', sans-serif;
+  color: #1c2e8d !important;
+  margin-left: 18px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #4a63c7 !important;
+}
+
+/* FOOTER */
+
+footer {
+  color: #1c2e8d;
+  padding: 30px 0;
+  text-align: center;
+  border-top: 1px solid #1c2e8d;
+  width: 95%;
+  margin: 90px auto 0;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* MODAL DE RECETAS */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #fff;
+  border: 2px solid #1c2e8d;
+  padding: 20px;
+  width: 90%;
+  max-width: 380px;
+  max-height: 70vh;
+  overflow-y: auto;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #1c2e8d;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
