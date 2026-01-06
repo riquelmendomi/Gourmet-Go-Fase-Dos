@@ -177,11 +177,12 @@ footer p {
   border: 2px solid #1c2e8d;
   padding: 20px;
   width: 90%;
-  max-width: 380px;
+  max-width: 430px;
   max-height: 70vh;
   overflow-y: auto;
   text-align: center;
   position: relative;
+  border-radius: 0 !important;
 }
 
 .modal-content img {
@@ -189,6 +190,7 @@ footer p {
   max-height: 250px;
   object-fit: cover;
   margin-bottom: 10px;
+  border-radius: 0 !important;
 }
 
 .close-modal {
@@ -202,4 +204,12 @@ footer p {
 
 .modal-overlay.active {
   display: flex;
+}
+
+.modal-dialog {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - 1rem);
+  max-width: 380px;
+  margin: auto;
 }
