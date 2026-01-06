@@ -6,10 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("searchInput");
   const results = document.getElementById("results");
 
-  /* =======================
-     CLASE RECETA (POO OPCIONAL)
-  ======================= */
-
   class Receta {
     constructor({ idMeal, strMeal, strMealThumb }) {
       this.id = idMeal;
@@ -17,10 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
       this.imagen = strMealThumb;
     }
   }
-
-  /* =======================
-     UTILIDADES
-  ======================= */
 
   const limpiarResultados = () => {
     results.innerHTML = "";
@@ -36,37 +28,29 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   };
 
-  /* =======================
-     RENDER DIN¡MICO
-  ======================= */
-
   const renderRecetas = (recetas) => {
     limpiarResultados();
 
     if (recetas.length === 0) {
-      mostrarMensaje(
-        "Lo sentimos, no se encontraron recetas. Intenta con otro ingrediente (ej: chicken)."
-      );
+      mostrarMensaje("No se encontraron recetas");
       return;
     }
 
-    recetas.forEach(({ nombre, imagen }) => {
+    recetas.forEach(({ nombre, imagen, id }) => {
       const cardHTML = `
         <div class="col-lg-4 col-md-6 col-6">
           <div class="recipe-card">
             <img src="${imagen}" alt="${nombre}">
             <h5>${nombre}</h5>
-            <button class="card-btn">Ver receta</button>
+            <button class="card-btn ver-receta" data-id="${id}">
+              Ver receta
+            </button>
           </div>
         </div>
       `;
       results.insertAdjacentHTML("beforeend", cardHTML);
     });
   };
-
-  /* =======================
-     FETCH A LA API
-  ======================= */
 
   const buscarRecetas = async (ingrediente) => {
     try {
@@ -75,34 +59,71 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const data = await response.json();
 
-      if (data.meals === null) {
+      if (!data.meals) {
         renderRecetas([]);
         return;
       }
 
-      const recetas = data.meals.map((meal) => new Receta(meal));
+      const recetas = data.meals.map(meal => new Receta(meal));
       renderRecetas(recetas);
 
     } catch (error) {
-      mostrarMensaje("OcurriÛ un error al buscar recetas");
+      mostrarMensaje("Error al buscar recetas");
       console.error(error);
     }
   };
 
-  /* =======================
-     EVENTO DEL FORM
-  ======================= */
-
   form.addEventListener("submit", (e) => {
-    e.preventDefault(); // evita recarga (HU-04)
+    e.preventDefault();
 
     const ingrediente = input.value.trim().toLowerCase();
     if (!ingrediente) {
-      mostrarMensaje("Escribe un ingrediente para buscar");
+      mostrarMensaje("Escribe un ingrediente");
       return;
     }
 
     buscarRecetas(ingrediente);
   });
 
+});
+
+/* DETALLE RECETA */
+
+const detallereceta = async (id) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.meals[0];
+  } catch (error) {
+    console.error("Error al buscar detalle", error);
+  }
+};
+
+/* EVENTO CLICK (MODAL) */
+
+document.addEventListener("click", async (e) => {
+  if (!e.target.classList.contains("ver-receta")) return;
+
+  e.preventDefault();
+
+  const id = e.target.dataset.id;
+  const meal = await detallereceta(id);
+
+  if (!meal) return;
+
+  document.getElementById("modalTitulo").textContent = meal.strMeal;
+  document.getElementById("modalImagen").src = meal.strMealThumb;
+  document.getElementById("modalImagen").alt = meal.strMeal;
+  document.getElementById("modalDetalle").textContent = meal.strInstructions;
+
+ 
+  const modalElement = document.getElementById("recipeModal");
+  if (!modalElement) {
+    console.error("No se encontr√≥ el modal #recipeModal");
+    return;
+  }
+
+  const modal = new bootstrap.Modal(modalElement);
+  modal.show();
 });
